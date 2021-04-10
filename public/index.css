@@ -19,13 +19,23 @@ header{
   padding: 20px;
 }
 
+.serial{
+  font-size: 25px;
+  align-self: center;
+  padding: 15px;
+}
+
 .video-info{
   margin: 0px 20px;
   flex-grow: 1;
 }
 
+.button-disabled{
+  cursor: not-allowed !important;
+}
+
 #videolist{
-  margin: 0px 20vw;
+  margin: 0px 10vw;
 }
 
 #yt-link {
@@ -46,11 +56,6 @@ header{
   background-color: #EFEFEF;
 }
 
-#findBtn>img{
-  height: 15px;
-  vertical-align: text-bottom;
-  padding-right:5px;
-}
 
 #analyseBtn{
   cursor: pointer;
