@@ -1,5 +1,5 @@
 {
-  "name": "yt-cmt-analyzer",
+  "name": "yt-cmt-Analyser",
   "version": "1.0.0",
   "description": "A web application for sentiment analysis of Youtube comments\"",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/weevil111/yt-cmt-analyzer.git"
+    "url": "git+https://github.com/weevil111/yt-cmt-Analyser.git"
   },
   "author": "Abhinav Parag Mishra",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/weevil111/yt-cmt-analyzer/issues"
+    "url": "https://github.com/weevil111/yt-cmt-Analyser/issues"
   },
-  "homepage": "https://github.com/weevil111/yt-cmt-analyzer#readme",
+  "homepage": "https://github.com/weevil111/yt-cmt-Analyser#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
