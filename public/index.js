@@ -20,7 +20,6 @@ function stopLoading(){
 function setVideoData(videoList){
   const section = document.getElementById("videolist");
   section.innerHTML = ""; // Clear the already present videos
-  console.log("I was called",videoList);
   videoList.forEach((video, index) => {
     let div = document.createElement("div");
 
@@ -36,11 +35,9 @@ function setVideoData(videoList){
     div.classList = ["list-item"];
     section.appendChild(div);
   });
-  stopLoading();
 }
 
 document.getElementById("findBtn").addEventListener("click", function(){
-  console.log("I was called");
   let channelUrl = document.querySelectorAll("input")[0].value.trim();
   let numberOfVideos = parseInt(document.querySelectorAll("input")[1].value.trim(),10);
   if(channelUrl.value !== ""){
@@ -57,6 +54,7 @@ document.getElementById("findBtn").addEventListener("click", function(){
     })
     .then( response => response.json())
     .then(json => setVideoData(json.videos))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => stopLoading())
   }
 })

@@ -55,33 +55,35 @@ async function getVideoList({channelUrl, numberOfVideos = 1001}) {
 
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
-  await page.goto(`${channelUrl}/videos`);
-  
-  playlistId =  await page.$$eval("a.yt-simple-endpoint.ytd-button-renderer", links => {
-    const playAllLink = links.find( link => link.text.trim() === "Play all").href;
-    const playlistId  = playAllLink.substring(38,playAllLink.indexOf("&play"));
-    return playlistId;
-  })
-  await page.goto(`https://www.youtube.com/playlist?list=${playlistId}`);
-
-  totalNumberOfVideos = await page.$eval("#stats.ytd-playlist-sidebar-primary-info-renderer span", el => {
-    return el.textContent;
-  });
-
-  totalNumberOfVideos = parseInt(totalNumberOfVideos, 10);
-
-  await scroll(page, Math.min(numberOfVideos, totalNumberOfVideos) ); 
-
-  result.videos = await getData(page, totalNumberOfVideos);
-  result.videos.splice(Math.min(numberOfVideos,totalNumberOfVideos))
-  result.totalChannelVideos = totalNumberOfVideos;
-
-  
-  await browser.close();
-  return result;
-};
-// (async function(){
-// console.log(await getVideoList("https://www.youtube.com/channel/UC7rNzgC2fEBVpb-q_acpsmw"))
-// })();
+  try{
+    await page.goto(`${channelUrl}/videos`);
+      await page.waitForSelector("a.yt-simple-endpoint.ytd-button-renderer")
+      playlistId =  await page.$$eval("a.yt-simple-endpoint.ytd-button-renderer", links => {
+        const playAllLink = links.find( link => link.text.trim() === "Play all").href;
+        const playlistId  = playAllLink.substring(38,playAllLink.indexOf("&play"));
+        return playlistId;
+      })
+      await page.goto(`https://www.youtube.com/playlist?list=${playlistId}`);
+      
+      totalNumberOfVideos = await page.$eval("#stats.ytd-playlist-sidebar-primary-info-renderer span", el => {
+        return el.textContent;
+      });
+      
+      totalNumberOfVideos = parseInt(totalNumberOfVideos, 10);
+      
+      await scroll(page, Math.min(numberOfVideos, totalNumberOfVideos) ); 
+      
+      result.videos = await getData(page, totalNumberOfVideos);
+      result.videos.splice(Math.min(numberOfVideos,totalNumberOfVideos))
+      result.totalChannelVideos = totalNumberOfVideos;
+      
+      
+      await browser.close();
+    }catch(e){
+      browser.close();
+      return {error: "Failed to get videos"}
+    }
+    return result;
+  };
 
 module.exports = getVideoList
