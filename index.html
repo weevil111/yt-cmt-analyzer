@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./index.css">
   <title>Youtube Comment Analyser</title>
+  <script defer src="./index.js"></script>
 </head>
 <body>
   <noscript>
@@ -13,6 +14,7 @@
   <header class="text-center">
     <h1>Youtube Comments Sentiment Analyser</h1>
     <input type="text" id="yt-link" placeholder="Enter a Youtube Channel to fetch its videos" value="https://www.youtube.com/channel/UC7rNzgC2fEBVpb-q_acpsmw">
+    <input type="number" id="yt-link" placeholder="Number of videos" value="100" style="width: 100px;">
     <button id="findBtn">
       <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png" alt="search icon">
       Find
@@ -20,47 +22,14 @@
   </header>
   <main>
     <section id="videolist">
-      <div class="list-item">
+      <!-- <div class="list-item">
+        <span class="serial">1.</span>
         <img src="https://img.youtube.com/vi/E2BLu4eARI0/default.jpg" alt="Thumbnail">
         <div class="video-info">
           <h3>Inverse of a Number | Data Structure & Algorithms in C++</h3>
-          <div>Inverse of a Number | Data Structure & Algorithms in C++</div>
         </div>
         <button id="analyseBtn">ANALYSE</button>
-      </div>
-      <div class="list-item">
-        <img src="https://img.youtube.com/vi/E2BLu4eARI0/default.jpg" alt="Thumbnail">
-        <div class="video-info">
-          <h3>Inverse of a Number | Data Structure & Algorithms in C++</h3>
-          <div>Inverse of a Number | Data Structure & Algorithms in C++</div>
-        </div>
-        <button id="analyseBtn">ANALYSE</button>
-      </div>
-      <div class="list-item">
-        <img src="https://img.youtube.com/vi/E2BLu4eARI0/default.jpg" alt="Thumbnail">
-        <div class="video-info">
-          <h3>Inverse of a Number | Data Structure & Algorithms in C++</h3>
-          <div>Inverse of a Number | Data Structure & Algorithms in C++</div>
-        </div>
-        <button id="analyseBtn">ANALYSE</button>
-      </div>
-      <div class="list-item">
-        <img src="https://img.youtube.com/vi/E2BLu4eARI0/default.jpg" alt="Thumbnail">
-        <div class="video-info">
-          <h3>Inverse of a Number | Data Structure & Algorithms in C++</h3>
-          <div>Inverse of a Number | Data Structure & Algorithms in C++</div>
-        </div>
-        <button id="analyseBtn">ANALYSE</button>
-      </div>
-      <div class="list-item">
-        <img src="https://img.youtube.com/vi/E2BLu4eARI0/default.jpg" alt="Thumbnail">
-        <div class="video-info">
-          <h3>Inverse of a Number | Data Structure & Algorithms in C++</h3>
-          <div>Inverse of a Number | Data Structure & Algorithms in C++</div>
-        </div>
-        <button id="analyseBtn">ANALYSE</button>
-      </div>
-      
+      </div> -->
     </section>
   </main>
 </body>

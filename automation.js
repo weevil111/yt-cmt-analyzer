@@ -26,10 +26,12 @@ async function scroll(page, numberOfVideos){
   }
 }
 
-async function getData(page){
-  let data = await page.$$eval("#contents", el => {
+async function getData(page, totalNumberOfVideos){
+  let data = await page.$$eval("#contents", (el, total) => {
     let videoElementList = Array.from(el[2].children);
-    videoElementList.pop(); // last child is just a spinner 
+    if (videoElementList.length < total){
+      videoElementList.pop(); // last child is just a spinner in case all the videos were not loaded
+    }
     let result = []
     videoElementList.forEach(videoElement => {
       console.log(videoElement.querySelector("#video-title"));
@@ -41,11 +43,11 @@ async function getData(page){
       })
     });
     return result;
-  })
+  }, totalNumberOfVideos)
   return data;
 }
 
-async function getVideoList(channelUrl, numberOfVideos = 1001) {
+async function getVideoList({channelUrl, numberOfVideos = 1001}) {
 
   let result = {};
   let playlistId = "";
@@ -70,8 +72,9 @@ async function getVideoList(channelUrl, numberOfVideos = 1001) {
 
   await scroll(page, Math.min(numberOfVideos, totalNumberOfVideos) ); 
 
-  result.videos = await getData(page);
-  result.totalVideos = totalNumberOfVideos;
+  result.videos = await getData(page, totalNumberOfVideos);
+  result.videos.splice(Math.min(numberOfVideos,totalNumberOfVideos))
+  result.totalChannelVideos = totalNumberOfVideos;
 
   
   await browser.close();
@@ -81,4 +84,4 @@ async function getVideoList(channelUrl, numberOfVideos = 1001) {
 // console.log(await getVideoList("https://www.youtube.com/channel/UC7rNzgC2fEBVpb-q_acpsmw"))
 // })();
 
-// document.querySelectorAll("#contents")[2].childElementCount
+module.exports = getVideoList

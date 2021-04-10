@@ -19,13 +19,19 @@ header{
   padding: 20px;
 }
 
+.serial{
+  font-size: 25px;
+  align-self: center;
+  padding: 15px;
+}
+
 .video-info{
   margin: 0px 20px;
   flex-grow: 1;
 }
 
 #videolist{
-  margin: 0px 20vw;
+  margin: 0px 10vw;
 }
 
 #yt-link {
