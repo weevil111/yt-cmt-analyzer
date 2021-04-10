@@ -1,2 +1,2 @@
-# yt-cmt-analyzer
+# yt-cmt-Analyser
 A web application for sentiment analysis of Youtube comments
