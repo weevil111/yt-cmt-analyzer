@@ -1,4 +1,22 @@
 
+function startLoading(){
+  let icon = document.getElementById("search-icon")
+  let btn = document.getElementById("findBtn");
+  icon.classList.remove("fa-search");
+  icon.classList.add("fa-spinner","fa-spin");
+  btn.classList.add("button-disabled");
+  btn.disabled = true;
+}
+function stopLoading(){
+  let btn = document.getElementById("findBtn");
+  let icon = document.getElementById("search-icon")
+  icon.classList.remove("fa-spinner","fa-spin","button-disabled");
+  icon.classList.add("fa-search");
+
+  btn.classList.remove("button-disabled");
+  btn.disabled = false;
+}
+
 function setVideoData(videoList){
   const section = document.getElementById("videolist");
   section.innerHTML = ""; // Clear the already present videos
@@ -18,13 +36,15 @@ function setVideoData(videoList){
     div.classList = ["list-item"];
     section.appendChild(div);
   });
-
+  stopLoading();
 }
 
 document.getElementById("findBtn").addEventListener("click", function(){
+  console.log("I was called");
   let channelUrl = document.querySelectorAll("input")[0].value.trim();
   let numberOfVideos = parseInt(document.querySelectorAll("input")[1].value.trim(),10);
   if(channelUrl.value !== ""){
+    startLoading();
     fetch("http://localhost:3000/videos",{
       method: "post",
       body: JSON.stringify({

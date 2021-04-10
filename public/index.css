@@ -30,6 +30,10 @@ header{
   flex-grow: 1;
 }
 
+.button-disabled{
+  cursor: not-allowed !important;
+}
+
 #videolist{
   margin: 0px 10vw;
 }
@@ -52,11 +56,6 @@ header{
   background-color: #EFEFEF;
 }
 
-#findBtn>img{
-  height: 15px;
-  vertical-align: text-bottom;
-  padding-right:5px;
-}
 
 #analyseBtn{
   cursor: pointer;
