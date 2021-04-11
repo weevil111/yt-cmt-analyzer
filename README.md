@@ -3,8 +3,8 @@ A web application for sentiment analysis of Youtube comments
 
 # Getting started
 ```
-git clone https://github.com/weevil111/yt-cmt-analyzer.git`
-cd yt-cmt-analyzer`
+git clone https://github.com/weevil111/yt-cmt-analyzer.git
+cd yt-cmt-analyzer
 npm i
 npm run dev
 ```
@@ -36,3 +36,15 @@ npm run dev
   1. To run the puppeteer in headless mode, make *HEADLESS_MODE* constant in */server/automation.js* as *true*
   2. In phase 3, tokens are used for making API requests to *monkeylearn.com* . Each token has a monthly limit of 300 comments analysis. 
   3. In case more tokens are required, then one can register on *monkeylearn.com* for free and get a token.
+
+## Usage
+  The insights given by the web application can be used for reviewing how audience are recieving the videos. For example:
+    * If the channel owner decides new video format for his/her videos. The analysis will give whether users are happy with the new format or not.
+    * Gaming companies or Product companies can get idea of how well their new game/ new product is received by the audience., etc
+
+## Future Scope
+  Different types of classifiers can be used to analyse the comments. For example, 
+  * Whether users are angry or sad or happy
+  * Whether more users are confused and asking questions or not, etc
+  
+  Depending on the use case, a channel owner can harvest vast insights.
