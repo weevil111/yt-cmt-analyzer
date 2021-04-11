@@ -2,12 +2,18 @@ let axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
+// Note - Each token can give sentiment analysis of at most 300 comments per month.
+// Tokens are expendable entities. Moke tokens can be created by registering to monkeylearn.com
+// using temporary disposable mails 
+
+// Load the tokens from "tokens.txt" file
 function loadTokens(){
   let tokens = fs.readFileSync(path.join(__dirname,"/tokens.txt"),"utf-8");
   tokens = JSON.parse(tokens);
   return tokens;
 }
 
+// Save the updated token data in "tokens.txt" file
 function updateTokenData(tokenList){
   fs.writeFile(path.join(__dirname,"/tokens.txt"),JSON.stringify(tokenList), function(err){
     if(err){
@@ -18,10 +24,19 @@ function updateTokenData(tokenList){
   })
 }
 
+// Find the token which has enough request limit reach to analyse given number of comments
+
 function findTokenWithLimitRemaining(tokens, numberOfComments){
   let tokenId = Object.keys(tokens).find(tokenId => tokens[tokenId] >= numberOfComments );
   return tokenId;
 }
+
+/**
+ *  Wrapper function that uses rest of the functions to carry out sentiment analysis
+ * 
+ *  @param {Array} comments | List of comments to analysed
+ *  @returns 
+ */
 
 async function findSentiments(comments){
   
