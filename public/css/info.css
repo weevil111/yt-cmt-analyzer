@@ -21,6 +21,21 @@ iframe{
   height: 100%;
 }
 
+
+table{
+  margin: 0 auto;
+}
+td{
+  padding: 8px;
+}
+
+input {
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px;
+  width: 50%;
+}
+
 .text-center{
   text-align: center;
 }
@@ -63,16 +78,22 @@ iframe{
   margin: 20px 0px;
   width: 100%;
 }
-
-table{
-  margin: 0 auto;
+.button-disabled{
+  cursor: not-allowed !important;
 }
-td{
+
+.bar-container{
+  min-width: 20%;
+  flex-grow: 1;
+}
+
+#goBtn{
+  background-color: #FFFFFF;
   padding: 10px;
+  cursor: pointer;
 }
 
-@media only screen and (max-width:900px){
-  #videolist{
-    margin: 0px 50px;
-  }
+#goBtn:hover{
+  transition-duration: 0.4s;
+  background-color: #EFEFEF;
 }

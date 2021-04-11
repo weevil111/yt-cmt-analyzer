@@ -1,14 +1,14 @@
 const puppeteer = require('puppeteer');
 
-async function scroll(page, numberOfVideos){
+const HEADLESS_MODE = false;
 
-  let numberofTimes = parseInt(numberOfVideos/100); // Each scroll loads 100 more videos
+async function scroll(page, numberOfVideos){
+  let numberofTimes = parseInt(numberOfVideos/100,10); // Each scroll loads 100 more videos
   if(numberOfVideos % 100 == 0){
     numberofTimes -= 1; 
     // for example, if number of videos required = 100 then don't scroll as 1-100 video are already loaded
     // if number of videos required = 101 then scroll as video no. 101 is not loaded
   }
-
   let currentHeight = 0;
   try{
     while(numberofTimes>0){
@@ -47,13 +47,14 @@ async function getData(page, totalNumberOfVideos){
   return data;
 }
 
-async function getVideoList({channelUrl, numberOfVideos = 1001}) {
+async function getVideoList({channelUrl, numberOfVideos = 100}) {
 
   let result = {};
   let playlistId = "";
   let totalNumberOfVideos = 0;
 
-  const browser = await puppeteer.launch({headless: false});
+
+  const browser = await puppeteer.launch({headless: HEADLESS_MODE});
   const page = await browser.newPage();
   try{
     await page.goto(`${channelUrl}/videos`);
@@ -64,19 +65,17 @@ async function getVideoList({channelUrl, numberOfVideos = 1001}) {
         return playlistId;
       })
       await page.goto(`https://www.youtube.com/playlist?list=${playlistId}`);
-      
       totalNumberOfVideos = await page.$eval("#stats.ytd-playlist-sidebar-primary-info-renderer span", el => {
         return el.textContent;
       });
       
-      totalNumberOfVideos = parseInt(totalNumberOfVideos, 10);
+      totalNumberOfVideos = parseInt(totalNumberOfVideos.split(",").join(""), 10);
       
       await scroll(page, Math.min(numberOfVideos, totalNumberOfVideos) ); 
       
       result.videos = await getData(page, totalNumberOfVideos);
       result.videos.splice(Math.min(numberOfVideos,totalNumberOfVideos))
       result.totalChannelVideos = totalNumberOfVideos;
-      
       
       await browser.close();
     }catch(e){
@@ -86,4 +85,24 @@ async function getVideoList({channelUrl, numberOfVideos = 1001}) {
     return result;
   };
 
-module.exports = getVideoList
+async function getAllComments(videoId){
+  const browser = await puppeteer.launch({headless: HEADLESS_MODE});
+  const page = await browser.newPage();
+  try{
+    await page.goto("https://youtuberandomcomment.com/", {waitUntil: 'networkidle0'});
+    await page.$eval("a[href='#allcomments']", e => e.click());
+    await page.$eval("#linkAll", (el, videoId) => el.value = `https://www.youtube.com/watch?v=${videoId}`, videoId )
+    await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: './downloads'});
+    await page.$eval("#getAllComments", e => e.click());
+    await page.goto("https://youtuberandomcomment.com/comments.json", {waitUntil: 'networkidle0'});
+    data = await page.evaluate(() => document.body.textContent);
+    browser.close();
+    return JSON.parse(data);
+  }catch(e){
+    console.log(e);
+    return { error: "Cannot get comments"}
+  }
+}
+
+module.exports.getVideoList = getVideoList;
+module.exports.getAllComments = getAllComments

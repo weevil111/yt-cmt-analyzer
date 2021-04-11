@@ -58,3 +58,14 @@ document.getElementById("findBtn").addEventListener("click", function(){
     .finally(() => stopLoading())
   }
 })
+
+document.getElementById("videolist").addEventListener("click", function(e){
+  if(e.target.tagName !== "BUTTON"){
+    return;
+  }
+
+  const link = e.target.previousElementSibling.previousElementSibling.src;
+  const videoId = link.substring(27, link.lastIndexOf("/"));
+  window.open(`/info?videoId=${videoId}`,target="_self")
+
+})

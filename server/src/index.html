@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Youtube Comment Analyser</title>
-  <script defer src="./index.js"></script>
+  <script defer src="./js/index.js"></script>
 </head>
 <body>
   <noscript>
@@ -15,10 +15,9 @@
   <header class="text-center">
     <h1>Youtube Comments Sentiment Analyser</h1>
     <input type="text" id="yt-link" placeholder="Enter a Youtube Channel to fetch its videos" value="https://www.youtube.com/channel/UC7rNzgC2fEBVpb-q_acpsmw">
-    <input type="number" id="yt-link" placeholder="Number of videos" value="100" style="width: 100px;">
+    <input type="number" class="video-count" placeholder="Number of videos" value="100">
     <button id="findBtn">
       <i class="fa fa-search" id="search-icon"></i>
-      <!-- <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png" alt="search icon"> -->
       Find
     </button>
   </header>
