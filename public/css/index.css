@@ -45,6 +45,13 @@ header{
   width: 50%;
 }
 
+.video-count {
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px;
+  width: 20%;
+}
+
 #findBtn{
   background-color: #FFFFFF;
   padding: 10px;
@@ -55,7 +62,6 @@ header{
   transition-duration: 0.4s;
   background-color: #EFEFEF;
 }
-
 
 #analyseBtn{
   cursor: pointer;

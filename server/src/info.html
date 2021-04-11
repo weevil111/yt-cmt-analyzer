@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./info.css">
+  <link rel="stylesheet" href="./css/info.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Youtube Comment Analyser</title>
+  <script defer src="./js/info.js"></script>
 </head>
 <body>
   <noscript>
@@ -12,7 +14,11 @@
   </noscript>
   <header class="text-center">
     <h1>Youtube Comments Sentiment Analyser</h1>
-    
+    <input type="number" id="yt-link" placeholder="Comments bucket size ( MAX : 250, Default: 20 )" max="250">
+    <button id="goBtn">
+      <i class="fa fa-bar-chart" id="go-icon"></i>
+      GO
+    </button>
   </header>
   <main class="video">
     <section class="video-container">
@@ -20,16 +26,16 @@
     </section>
     <section class="analysis-container">
       <div class="sentiment-container">
-        <div style="width: 10%;min-width: 15%;">
-          <div id="positive-bar" class="bar" style="background-color: green;">30%</div>
+        <div id="positive-bar" class="bar-container" style="width: 33%">
+          <div class="bar dynamic-value" style="background-color: green;">__%</div>
           <div class="bar-text">Positive</div>
         </div>
-        <div style="width: 20%;min-width: 15%;">
-          <div id="neutral-bar" class="bar" style="background-color: orange;">40%</div>
+        <div id="neutral-bar" class="bar-container" style="width: 33%">
+          <div class="bar dynamic-value" style="background-color: orange;">__%</div>
           <div class="bar-text">Neutral</div>
         </div>
-        <div style="width: 80%;min-width: 15%;">
-          <div id="negative-bar" class="bar" style="background-color: red;">30%</div>
+        <div id="negative-bar" class="bar-container" style="width: 33%">
+          <div class="bar dynamic-value" style="background-color: red;">__%</div>
           <div class="bar-text">Negative</div>
         </div>
       </div>
@@ -38,19 +44,23 @@
         <table>
           <tr>
             <td> Total Comments (Top-level)</td>
-            <td><strong id="total"> : 118</strong></td>
+            <td><strong id="total" class="dynamic-value"> : __</strong></td>
+          </tr>
+          <tr>
+            <td> Comments Bucket size used</td>
+            <td><strong id="bucket" class="dynamic-value"> : __</strong></td>
           </tr>
           <tr>
             <td>Positive</td>
-            <td><strong id="positive"> : 15</strong></td>
+            <td><strong id="positive" class="dynamic-value"> : __</strong></td>
           </tr>
           <tr>
             <td>Neutral</td>
-            <td><strong id="neutral"> : 156</strong></td>
+            <td><strong id="neutral" class="dynamic-value"> : __</strong></td>
           </tr>
           <tr>
             <td>Negative</td>
-            <td><strong id="negative"> : 16</strong></td>
+            <td><strong id="negative" class="dynamic-value"> : __</strong></td>
           </tr>
         </table>
       </div>
