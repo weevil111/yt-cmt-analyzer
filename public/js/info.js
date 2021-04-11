@@ -54,19 +54,20 @@ async function getSentiment(comments){
   return response.sentiments;
 }
 
-function fillFields({positive, neutral, negative}){
-  console.log("Third",positive,neutral,negative);
-  document.querySelector("#positive").innerHTML = ` : ${positive.toFixed(3)}`;
-  document.querySelector("#neutral").innerHTML = ` : ${neutral.toFixed(3)}`;
-  document.querySelector("#negative").innerHTML = ` : ${negative.toFixed(3)}`;
-  console.log("Fourth",positive.toFixed(3),neutral.toFixed(3),negative.toFixed(3));
+function fillFields({positive, neutral, negative, bucketSize}){
+  document.querySelector("#positive").innerHTML = ` : ${positive}`;
+  document.querySelector("#neutral").innerHTML = ` : ${neutral}`;
+  document.querySelector("#negative").innerHTML = ` : ${negative}`;
   const positiveBar = document.querySelector("#positive-bar");
   const neutralBar = document.querySelector("#neutral-bar");
   const negativeBar = document.querySelector("#negative-bar");
   
-  positive = Math.round(positive);
-  negative = Math.round(negative);
-  neutral = 100 - positive - negative
+  // Convert in percentage
+  if(bucketSize != 0){
+    positive = Math.round((positive/bucketSize)*100);
+    neutral = Math.round((neutral/bucketSize)*100);
+    negative = Math.round((negative/bucketSize)*100)
+  }
 
   positiveBar.setAttribute("style",`width:${positive}%`);
   neutralBar.setAttribute("style",`width:${neutral}%`);
@@ -83,7 +84,7 @@ function fillFields({positive, neutral, negative}){
 async function analyse(){
   startLoading();
   let positive = 0, neutral = 0, negative = 0;
-  let sentiments;
+  let sentiments=[];
   let bucketSize = document.querySelector("input").value;
   if(!bucketSize){
     bucketSize = 20;
@@ -101,7 +102,6 @@ async function analyse(){
 
   if(comments.length > 0){
     sentiments = await getSentiment(commentTexts.slice(0,bucketSize));
-    console.log("----",sentiments);
     sentiments.forEach(sentiment => {
       switch (sentiment.classifications[0].tag_name){
         case "Positive":
@@ -114,16 +114,9 @@ async function analyse(){
           negative += 1;
           break;
       }
-      console.log("First",positive,neutral,negative);
-      // Convert in percentage
     })
-    positive = (positive/sentiments.length)*100;
-    neutral = (neutral/sentiments.length)*100;
-    negative = (negative/sentiments.length)*100;
-    console.log("second",positive,neutral,negative);
-    window.sentiments = sentiments;
   }
-  fillFields({positive, neutral, negative});
+  fillFields({positive, neutral, negative, bucketSize: sentiments.length});
   stopLoading();
 }
 

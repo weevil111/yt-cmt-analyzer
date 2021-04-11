@@ -43,7 +43,6 @@ async function findSentiments(comments){
     }).then(resp => {
       tokenList[token] = resp.headers["x-query-limit-remaining"];
       updateTokenData(tokenList);
-      console.log(resp.headers["x-query-limit-remaining"]);
       return resp.data;
     });
   }

@@ -17,7 +17,7 @@ app.get("/info", (req, res) => {
 })
 
 app.post("/videos", async(req, res) =>{
-  let result = await getVideoList(req.body)
+  let result = await getVideoList({...req.body, type:req.query.type})
   res.json(result);
 })
 
