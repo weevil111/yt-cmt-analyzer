@@ -1,5 +1,8 @@
 
+// Handle loading animation and disable button to prevent multiple requests
+
 function startLoading(){
+
   let icon = document.getElementById("search-icon")
   let btn = document.getElementById("findBtn");
   icon.classList.remove("fa-search");
@@ -7,8 +10,13 @@ function startLoading(){
   btn.classList.add("button-disabled");
   btn.disabled = true;
   document.getElementById("videolist").innerHTML = ""
+
 }
+
+// Stop all loading animation and re-enable button
+
 function stopLoading(){
+
   let btn = document.getElementById("findBtn");
   let icon = document.getElementById("search-icon")
   icon.classList.remove("fa-spinner","fa-spin","button-disabled");
@@ -16,11 +24,17 @@ function stopLoading(){
 
   btn.classList.remove("button-disabled");
   btn.disabled = false;
+
 }
 
+// Create list of html elements to display the video list passes to the function
+
 function setVideoData(videoList){
+  
   const section = document.getElementById("videolist");
-  section.innerHTML = ""; // Clear the already present videos
+  // Clear the already present videos
+  section.innerHTML = ""; 
+
   videoList.forEach((video, index) => {
     let div = document.createElement("div");
 
@@ -38,6 +52,12 @@ function setVideoData(videoList){
   });
 }
 
+/**
+ * 
+ * @param {String} url | Url to detect whether it is channel or playlist or video
+ * @returns {String} type | type of url: channel / playlist/ video / unknown
+ */
+
 function getUrlType(url){
   if(url.indexOf("/channel/") >= 0 || url.indexOf("/user/") >= 0 || url.indexOf("/c/") >= 0){
     return "channel";
@@ -51,16 +71,21 @@ function getUrlType(url){
 }
 
 document.getElementById("findBtn").addEventListener("click", function(){
+  
   let url = document.querySelectorAll("input")[0].value.trim();
   let numberOfVideos = parseInt(document.querySelectorAll("input")[1].value.trim(),10);
   let inputType = getUrlType(url);
+  
   if(inputType !== "unknown"){
     startLoading();
+    
     if(inputType==="video"){
       let videoId = url.substring(url.indexOf("v=")+2);
+
       if(videoId.indexOf("&") >= 0){ // Support for videos that are part of a playlist
         videoId = videoId.substring(0,videoId.indexOf("&"));
       }
+      
       window.open(`/info?videoId=${videoId}`,target="_self")
       return;
     }
@@ -87,11 +112,13 @@ document.getElementById("findBtn").addEventListener("click", function(){
     .then(json => setVideoData(json.videos))
     .catch(err => console.log(err))
     .finally(() => stopLoading())
+
   }else{
     alert("The url entered is invalid !");
   }
 })
 
+// Open the video in new page when "Analyse" button is clicked
 document.getElementById("videolist").addEventListener("click", function(e){
   if(e.target.tagName !== "BUTTON"){
     return;

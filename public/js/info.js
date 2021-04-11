@@ -1,3 +1,5 @@
+
+// load the youtube video in ifram using videoId from query
 let videoId = window.location.search.substring(9);
 document.getElementsByTagName("iframe")[0].src = `https://www.youtube.com/embed/${videoId}`;
 
@@ -29,6 +31,7 @@ function stopLoading(){
   btn.disabled = false;
 }
 
+// Get a list of all comments made on the video under consideration ( identifed by videoId)
 async function getComments(){
   let comments = [];
   await fetch(`http://localhost:3000/comments?videoId=${videoId}`)
@@ -38,7 +41,10 @@ async function getComments(){
   return comments;
 }
 
+// Get the sentiment list containing sentiment for each comment
+
 async function getSentiment(comments){
+
   let response = []
   await fetch("http://localhost:3000/sentiments", {
     method: 'post',
@@ -52,9 +58,12 @@ async function getSentiment(comments){
   .then(data => response=data)
   .catch(err => console.log(err));
   return response.sentiments;
+
 }
 
+// Fill all the fields with appropriate values when they are available
 function fillFields({positive, neutral, negative, bucketSize}){
+
   document.querySelector("#positive").innerHTML = ` : ${positive}`;
   document.querySelector("#neutral").innerHTML = ` : ${neutral}`;
   document.querySelector("#negative").innerHTML = ` : ${negative}`;
@@ -79,7 +88,8 @@ function fillFields({positive, neutral, negative, bucketSize}){
 
 }
 
-
+// Wrapper function that gets all the comments of the video, analyses their sentiment and
+// evaluates the overall Positive, Negative and Neutral sentiment count
 
 async function analyse(){
   startLoading();

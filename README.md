@@ -31,3 +31,8 @@ npm run dev
       * Negative
      along with the confidence of the classification ( in percentage )
   3. The web app now calcultes the percentage of *Positive*, *Negative* and *Neutral* comments and displays accordingly. 
+
+## Quik Tip
+  1. To run the puppeteer in headless mode, make *HEADLESS_MODE* constant in */server/automation.js* as *true*
+  2. In phase 3, tokens are used for making API requests to *monkeylearn.com* . Each token has a monthly limit of 300 comments analysis. 
+  3. In case more tokens are required, then one can register on *monkeylearn.com* for free and get a token.
